@@ -1,6 +1,7 @@
 package com.fullstackapp.todo.service;
 
 import com.fullstackapp.todo.entity.ToDoItem;
+import com.fullstackapp.todo.model.ToDoItemDto;
 import com.fullstackapp.todo.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,12 @@ public class ToDoService {
         return (List<ToDoItem>) toDoRepository.findAll();
     }
 
-    public ToDoItem updateToDoItems(Long id, ToDoItem toDoItem) {
+    public ToDoItem updateToDoItems(Long id, ToDoItemDto toDoItemDto) {
         Optional<ToDoItem> optionalToDoItem = toDoRepository.findById(id);
         if (optionalToDoItem.isPresent()) {
             ToDoItem toDoItemToUpdate = optionalToDoItem.get();
-            toDoItemToUpdate.setTask(toDoItem.getTask());
-            toDoItemToUpdate.setIsDone(toDoItem.getIsDone());
+            toDoItemToUpdate.setTask(toDoItemDto.getTask());
+            toDoItemToUpdate.setIsDone(toDoItemDto.getIsDone());
             toDoRepository.save(toDoItemToUpdate);
             return toDoItemToUpdate;
         }
